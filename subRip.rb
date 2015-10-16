@@ -1,6 +1,7 @@
 require 'pry'
 
 class ReadFile
+	attr_reader :times, :lines
 
 	def initialize
 		@lines = []
@@ -11,7 +12,7 @@ class ReadFile
 		readFile
 		search_time(@lines)
 		splitTime
-		puts @lines
+		return [@lines, @times]
 	end
 
 	def readFile
@@ -46,9 +47,48 @@ class ReadFile
 end
 
 class AddingTimes
+	
+	def initialize(seconds)
+		@seconds = seconds
+	end
+
+	def actions
+	#some stuff adding seconds
+	end
+
 end
 
 class WriteFile
+	
+	def initialize(lines)
+		@lines = lines[0]
+		@times = lines[1]
+		actions
+	end
+
+	def actions
+	
+		#actions to join the arrays
+		#actions to write the new file
+		@lines << "\n \nSubs times changed by Alejandro"
+		join_times
+		join_lines
+		puts @lines
+
+	end
+
+	def join_times
+		@times.each do |pos|
+			@lines[pos]<<"\n"
+			@lines[pos] = @lines[pos].join(" ")
+		end
+	end
+
+	def join_lines
+		@lines = @lines.join
+	end
+
 end
 
 read = ReadFile.new.actions
+write = WriteFile.new(read)
